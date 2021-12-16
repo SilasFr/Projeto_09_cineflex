@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    max-width: 375px;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.movie-overview{
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.movie-overview img{
+    max-width: 100%;
+    margin-left: 40px;
+}

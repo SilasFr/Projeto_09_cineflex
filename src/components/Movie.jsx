@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
 
 export default function Movie() {
     const [movie, setMovie] = useState()
@@ -22,13 +24,18 @@ export default function Movie() {
                     return (
                         <div className="section" key={item.id}>
                             <p className="section-date">{item.weekday}-{item.date}</p>
-                            <div className="showtimes">
-                                {item.showtimes.map(showtime=>{
-                                    return(
-                                        <div className="showtime" key={showtime.id}>{showtime.name}</div>
+                            <Showtimes>
+                                {item.showtimes.map(showtime => {
+                                    return (
+                                        <ShowtimeDiv
+                                            key={showtime.id}>
+                                            <Link to={`/sessao/${showtime.id}`}>
+                                                {showtime.name}
+                                            </Link>
+                                        </ShowtimeDiv>
                                     )
                                 })}
-                            </div>
+                            </Showtimes>
                         </div>
                     )
                 })}
@@ -41,3 +48,13 @@ export default function Movie() {
         </>
     )
 }
+
+const ShowtimeDiv = styled.div`
+background-color: orange;
+width: 50px
+`
+
+const Showtimes = styled.div`
+display: flex;
+gap: 10px;
+`

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios';
+import React from "react";
 import { Link } from "react-router-dom";
 
 export default function MoviesFeed() {
@@ -19,7 +20,7 @@ export default function MoviesFeed() {
             moviesList.map(item => {
                 return (
                     <div key={item.id}>
-                        <Link to={`/${item.id}`}>
+                        <Link to={`/filme/${item.id}`}>
                             <p>{item.title}</p>
                             <img src={item.posterURL} />
                         </Link>

@@ -1,18 +1,22 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     max-width: 375px;
+    width:100%;
     height: 100vh;
+    font-family: 'Roboto', sans-serif;
 
     display: flex;
     justify-content: center;
-    padding: 20px;
 }
 
-.movie-overview{
+.movie-overview {
     width: 200px;
     display: flex;
     justify-content: center;
@@ -21,7 +25,7 @@ body{
 
 }
 
-.movie-overview img{
+.movie-overview img {
     max-width: 100%;
     margin-left: 40px;
 }

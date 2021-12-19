@@ -29,3 +29,15 @@ body {
     max-width: 100%;
     margin-left: 40px;
 }
+
+.selected{
+    background:#8DD7CF;
+}
+
+.available{
+    background:#C3CFD9;
+}
+
+.unavailable{
+    background: #FBE192;
+}

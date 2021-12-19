@@ -6,25 +6,56 @@ import styled from "styled-components";
 
 export default function Section({ seats, setSeats, ticket, setTicket, setCpf, setName }) {
     const { idSessao } = useParams()
+    console.log(ticket)
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`)
         promise.then(answer => {
             setSeats(answer.data)
         })
     }, [])
+
     if (!seats) return <h1>Carregando</h1>
-    console.log(seats)
+
+    function select(e) {
+        const selectedSeat = parseInt(e.target.lastChild.innerText)
+        const seatListItem = seats.seats.find(item => item.id === selectedSeat)
+        if (seatListItem.isAvailable) {
+            setTicket(e.target.className)
+        } else return alert("Esse assento não está disponível")
+        
+    }
     return (
         <>
             <Header>Selecione o(s) assento(s)</Header>
-            <Seats>
+            <Seats ticket= {ticket !== null ? ticket : null}>
                 {seats.seats.map(seat => {
                     return (
-                        <Seat key={seat.id}>{seat.name}</Seat>
+                        <Seat 
+                            onClick={select}
+                            className={seat.isAvailable === true ? `available ${seat.id}` : `unavailable ${seat.id}`}
+                            key={seat.id}>
+                            {seat.name}
+                            <span>{seat.id}</span>
+                        </Seat>
                     )
                 })}
             </Seats>
+            <Caption>
+                <div>
+                    <Ball className="selected"></Ball>
+                    <p>Selecionado</p>
+                </div>
+                <div>
+                    <Ball className="available"></Ball>
+                    <p>Disponível</p>
+                </div>
+                <div>
+                    <Ball className="unavailable"></Ball>
+                    <p>Indisponível</p>
+                </div>
+            </Caption>
             <Chekout>
+
                 <label>Nome do comprador:</label>
                 <input
                     inplace="Digite seu nome..."
@@ -44,12 +75,12 @@ export default function Section({ seats, setSeats, ticket, setTicket, setCpf, se
                     </Link>
                 </button>
             </Chekout>
-            <Footer movie={seats.movie}></Footer>
+            <Footer movie={seats.movie} date={seats.day.date} time={seats.name}></Footer>
         </>
     )
 }
 
-function Footer({ movie }) {
+function Footer({ movie, date, time }) {
     return (
         <FooterDiv>
             <Poster>
@@ -57,34 +88,41 @@ function Footer({ movie }) {
             </Poster>
             <MovieTitle>
                 <p>{movie.title}</p>
+                <p>{`${date} - ${time}`}</p>
             </MovieTitle>
         </FooterDiv>
     )
 }
 
-const Header= styled.p`
-width: 374px;
-height: 110px;
+const Header = styled.p`
+    width: 374px;
+    height: 110px;
 
-font-family: Roboto;
-font-size: 24px;
-line-height: 28px;
-display: flex;
-align-items: center;
-justify-content: center;
-letter-spacing: 0.04em;
+    font-family: Roboto;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.04em;
 
-color: #293845;
+    color: #293845;
 `
 
 const Seat = styled.div`
-    background-color: gray;
     width: 25px;
     height:25px;
+    border: 1px solid #808F9D;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: 0.04em;
+    span{
+        display:none;
+    }
 `
 
 const Seats = styled.div`
@@ -94,9 +132,35 @@ const Seats = styled.div`
     flex-wrap: wrap;
     justify-content:center;
     gap: 7px;
+    ${props=> props.ticket}{
+        background: #8DD7CF;
+    }
 `
+const Caption = styled.div`
+    margin: 20px 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    div{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+}
+`
+const Ball = styled.div`
+    width:25px;
+    height:25px;
+    border-radius:50%;
+`
+
+const Selection= styled.div`
+    background:#8DD7CF;
+`
+
 const Chekout = styled.div`
     display:flex;
+    align-items:center;
     gap: 5px;
     flex-direction: column;
 
@@ -114,6 +178,7 @@ const Chekout = styled.div`
         color: #293845;
         font-size: 18px;
         line-height: 21px;
+        width:327px;
     }
     input{
         width: 327px;
@@ -123,32 +188,36 @@ const Chekout = styled.div`
     }
 `
 const FooterDiv = styled.div`
-position:fixed;
-bottom:0;
-width:100%;
-height:117px;
-display:flex;
-align-items:center;
-gap:20px;
-background-color:#DFE6ED;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:117px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background-color:#DFE6ED;
 `
 const Poster = styled.div`
-width:64px;
-height:89px;
-padding:8px;
-margin-left:10px;
-background-color:#fff;
-img{
-    width:100%;
-    height:100%;
+    width:64px;
+    height:89px;
+    padding:8px;
+    margin-left:10px;
+    background-color:#fff;
+    img{
+        width:100%;
+        height:100%;
 }
 `
 const MovieTitle = styled.div`
-font-size: 26px;
-line-height: 30px;
-p{
-    width:100%;
-    overflow:hidden;
-    word-break: break;
-}
+    font-size: 26px;
+    line-height: 30px;
+    p{
+        width:100%;
+        overflow:hidden;
+        word-break: break;
+    }
 `
+
+// const ${ticketPreview} = styled.div`
+//     background-color:#8DD7CF;
+// `

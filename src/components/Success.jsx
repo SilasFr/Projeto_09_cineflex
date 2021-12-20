@@ -1,8 +1,18 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Success({seats, ticket, name, cpf}) {
+    const post = {
+        ids: [1, 2, 3],
+        name: name,
+        cpf: cpf
+    }
+
+    useEffect(()=>{
+        const promise = axios.post('https://mock-api.driven.com.br/api/v4/cineflex/seats/book-many')
+    })
     console.log(seats)
     console.log(ticket)
     return (

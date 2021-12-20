@@ -6,33 +6,41 @@ import styled from "styled-components";
 
 export default function Section({ seats, setSeats, ticket, setTicket, setCpf, setName }) {
     const { idSessao } = useParams()
-    console.log(ticket)
+    const [allSeats, setAllSeats] = useState([])
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`)
         promise.then(answer => {
             setSeats(answer.data)
-        })
-    }, [])
+            setAllSeats(answer.data.seats.map(item=> ({...item, isSelected: false})))
+        })}, [])
 
-    if (!seats) return <h1>Carregando</h1>
+    if (!seats || !allSeats) return <h1>Carregando</h1>
 
     function select(e) {
         const selectedSeat = parseInt(e.target.lastChild.innerText)
-        const seatListItem = seats.seats.find(item => item.id === selectedSeat)
-        if (seatListItem.isAvailable) {
-            setTicket(e.target.className)
-        } else return alert("Esse assento não está disponível")
-        
+        const newSeat = allSeats.map(item=> {
+            if(item.id === selectedSeat && !item.isAvailable){
+                alert('Esse assento não está disponível')
+            }
+            else if (item.id === selectedSeat && item.isAvailable){
+                item.isSelected = !item.isSelected
+            }
+            return item
+        })
+        setAllSeats(newSeat)
     }
+    console.log(allSeats)
+
     return (
         <>
             <Header>Selecione o(s) assento(s)</Header>
-            <Seats ticket= {ticket !== null ? ticket : null}>
-                {seats.seats.map(seat => {
+            <Seats>
+                {allSeats.map(seat => {
+                    // console.log(seat)
                     return (
                         <Seat 
-                            onClick={select}
-                            className={seat.isAvailable === true ? `available ${seat.id}` : `unavailable ${seat.id}`}
+                            onClick={select} 
+                            className= {seat.isSelected ? 'selected' : seat.isAvailable ? 'available' : 'unavailable'}
                             key={seat.id}>
                             {seat.name}
                             <span>{seat.id}</span>
@@ -123,6 +131,7 @@ const Seat = styled.div`
     span{
         display:none;
     }
+    /* background-color:${props=> props.isSelected ? '#8DD7CF' : props.isAvailable? '#C3CFD9' : '#FBE192'} */
 `
 
 const Seats = styled.div`
@@ -132,7 +141,7 @@ const Seats = styled.div`
     flex-wrap: wrap;
     justify-content:center;
     gap: 7px;
-    ${props=> props.ticket}{
+    &:focus{
         background: #8DD7CF;
     }
 `
@@ -154,7 +163,7 @@ const Ball = styled.div`
     border-radius:50%;
 `
 
-const Selection= styled.div`
+const Selection = styled.div`
     background:#8DD7CF;
 `
 
@@ -218,6 +227,6 @@ const MovieTitle = styled.div`
     }
 `
 
-// const ${ticketPreview} = styled.div`
-//     background-color:#8DD7CF;
-// `
+const Background = styled.div`
+    background-color:#8DD7CF;
+`

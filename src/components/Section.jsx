@@ -11,36 +11,35 @@ export default function Section({ seats, setSeats, ticket, setTicket, setCpf, se
         const promise = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`)
         promise.then(answer => {
             setSeats(answer.data)
-            setAllSeats(answer.data.seats.map(item=> ({...item, isSelected: false})))
-        })}, [])
+            setAllSeats(answer.data.seats.map(item => ({ ...item, isSelected: false })))
+        })
+    }, [])
 
     if (!seats || !allSeats) return <h1>Carregando</h1>
 
     function select(e) {
         const selectedSeat = parseInt(e.target.lastChild.innerText)
-        const newSeat = allSeats.map(item=> {
-            if(item.id === selectedSeat && !item.isAvailable){
+        const newSeat = allSeats.map(item => {
+            if (item.id === selectedSeat && !item.isAvailable) {
                 alert('Esse assento não está disponível')
             }
-            else if (item.id === selectedSeat && item.isAvailable){
+            else if (item.id === selectedSeat && item.isAvailable) {
                 item.isSelected = !item.isSelected
             }
             return item
         })
         setAllSeats(newSeat)
     }
-    console.log(allSeats)
 
     return (
         <>
             <Header>Selecione o(s) assento(s)</Header>
             <Seats>
                 {allSeats.map(seat => {
-                    // console.log(seat)
                     return (
-                        <Seat 
-                            onClick={select} 
-                            className= {seat.isSelected ? 'selected' : seat.isAvailable ? 'available' : 'unavailable'}
+                        <Seat
+                            onClick={select}
+                            className={seat.isSelected ? 'selected' : seat.isAvailable ? 'available' : 'unavailable'}
                             key={seat.id}>
                             {seat.name}
                             <span>{seat.id}</span>
@@ -78,7 +77,9 @@ export default function Section({ seats, setSeats, ticket, setTicket, setCpf, se
                     }}></input>
 
                 <button>
-                    <Link to='/sucesso'>
+                    <Link to='/sucesso' onClick={()=>{
+                        setTicket(allSeats.filter(item=> item.isSelected===true))
+                    }}>
                         Reservar assentos(s)
                     </Link>
                 </button>
@@ -131,7 +132,6 @@ const Seat = styled.div`
     span{
         display:none;
     }
-    /* background-color:${props=> props.isSelected ? '#8DD7CF' : props.isAvailable? '#C3CFD9' : '#FBE192'} */
 `
 
 const Seats = styled.div`
@@ -161,10 +161,6 @@ const Ball = styled.div`
     width:25px;
     height:25px;
     border-radius:50%;
-`
-
-const Selection = styled.div`
-    background:#8DD7CF;
 `
 
 const Chekout = styled.div`
@@ -225,8 +221,4 @@ const MovieTitle = styled.div`
         overflow:hidden;
         word-break: break;
     }
-`
-
-const Background = styled.div`
-    background-color:#8DD7CF;
 `

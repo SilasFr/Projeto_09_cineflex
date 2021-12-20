@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import MoviesFeed from "./MoviesFeed"
 import Movie from './Movie'
 import React from "react";

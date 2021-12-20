@@ -15,7 +15,6 @@ export default function Movie() {
     }, [])
 
     if (!movie) return <h1>Carregando</h1>
-    console.log(movie)
     return (
         <>
             <Container>

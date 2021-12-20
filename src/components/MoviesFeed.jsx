@@ -15,7 +15,6 @@ export default function MoviesFeed() {
     }, [])
 
     if (!moviesList) return <h1>Carregando</h1>
-    console.log(moviesList)
     return (
         <Container>
             <p>Selecione o filme</p>
@@ -25,8 +24,7 @@ export default function MoviesFeed() {
                 return (
                     <Movie key={item.id}>
                         <Link to={`/filme/${item.id}`}>
-                            {/* <p>{item.title}</p> */}
-                            <img src={item.posterURL} />
+                            <img src={item.posterURL} alt={item.title}/>
                         </Link>
                     </Movie>
                 )

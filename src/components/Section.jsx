@@ -172,7 +172,7 @@ const Chekout = styled.div`
     button{
         width: 225px;
         height: 42px;
-        margin:0 auto;
+        margin:50px auto 0 auto;
         border: none;
         color: #fff;
         font-weight: bold;

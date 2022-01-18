@@ -1,6 +1,18 @@
-# Getting Started with Create React App
+# Cineflex
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Screeshots
+
+[](assets/screenshot_cineflex.xcf)
+[](assets/screenshot_cineflex_showtimes.xcf)
+[](assets/screenshot_cineflex_seats.xcf)
+
+## Technologies
+
+This project was developped in React, as a mobile app. It's a frontend project connected to a public API. The user can select a movie, showtimes and seats and reserve seats.
+
+To run the project after cloning the repository, you have to run 'npm i' to install the node_modules folder.
 
 ## Available Scripts
 

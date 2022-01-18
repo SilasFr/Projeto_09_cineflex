@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Screeshots
 
 ![image](assets/screenshot_cineflex.png)
-![image](assets/screenshot_cineflex_showtimes.png)
+![image](assets/screenshot_cineflex_shotimes.png)
 ![image](assets/screenshot_cineflex_seats.png)
 
 ## Technologies

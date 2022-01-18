@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Screeshots
+## Screenshots
 
 ![image](assets/screenshot_cineflex.png)
 ![image](assets/screenshot_cineflex_shotimes.png)

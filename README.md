@@ -5,8 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Screenshots
 
 <p >
-<img width=200 height = 450 src='assets/screenshot_cineflex.png' />
-<img width =200 height = 450 src='assets/screenshot_cineflex_shotimes.png' />
+<img width=200 height = 450 src='https://user-images.githubusercontent.com/91638947/156925796-bb7a6154-c6fc-4eb1-9ff5-1004d60d6b7f.gif' />
+<img width =200 height = 450 src='https://user-images.githubusercontent.com/91638947/156925840-37b30e1f-4b53-46b4-b3ec-6a29869102de.gif' />
 </p>
 
 <p>
